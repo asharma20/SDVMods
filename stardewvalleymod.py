@@ -5,11 +5,11 @@ import re
 from distutils.dir_util import copy_tree
 
 def main(args):
-  savedir = args.savedir
-  savename = os.path.basename(os.path.dirname(savedir))
-  filepath = os.path.join(savedir, savename)
+  filepath = args.savefile
+  savedir = os.path.dirname(filepath)
+  savename = os.path.basename(filepath)
   savepath = os.path.join(savedir, 'SaveGameInfo')
-  
+
   # Copy save directory
   if (args.copy_save):
     savesdir = os.path.dirname(os.path.dirname(savedir))
@@ -41,13 +41,19 @@ def main(args):
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter)
-  parser.add_argument('--savedir', required=True, help='Path location of save directory.'
+  parser.add_argument('--savefile', required=True, help='Path location of save directory.'
     '\n (i.e. Replace Farm_123456789 with your save name,'
-    '\n Windows: "%%AppData%%\StardewValley\Saves\Farm_123456789",' 
-    '\n Mac:     "~/.config/StardewValley/Saves/Farm_123456789")')
+    '\n Windows: "%%AppData%%\StardewValley\Saves\Farm_123456789\Farm_123456789",' 
+    '\n Mac:     "~/.config/StardewValley/Saves/Farm_123456789\Farm_123456789")')
   parser.add_argument('--copy_save', action='store_true', help='Create a copy of the save before modifying.'
     '\n It is recommended to copy original save at least once.'
     '\n Note: this will keep adding new copies even when previous copies exist.')
   parser.add_argument('--money', type=int, help='Amount of money to set')
+  # TODO Add friendship value mods
+  # TODO Add items
+  # TODO Change year, season, day
+  # TODO Change relationship status
+  # TODO Change animal name
+  # TODO Change player name
   args = parser.parse_args()
   main(args)
